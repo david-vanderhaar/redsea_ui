@@ -1,0 +1,16 @@
+{
+  "name": "redsea_ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",
+    "build": "cp index.html ./build/index.html",
+    "deploy_gh_pages": "touch build/.nojekyll && gh-pages -d build -t true",
+    "deploy": "npm run deploy_gh_pages",
+    "publish": "npm run build && npm run deploy"
+
+  },
+  "author": "",
+  "license": "ISC"
+}
