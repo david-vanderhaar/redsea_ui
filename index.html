@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Red Sea</title>
-  <!-- favicon -->
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -36,15 +35,19 @@
     const {recipient_email, youtube_url} = Object.fromEntries(data.entries());
     
     sendPostRequest(recipient_email, youtube_url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        response_element.innerHTML = "<b>whoosh</b>";
+      .then(response => {
+        response_element.innerHTML = "<b>whoosh, watch the inbox</b>";
+        form.reset();
       })
-      .catch(error => {
-        console.error(error);
-        response_element.innerHTML = `<b>${error}</b>`;
-      });
+      // .then(response => response.json())
+      // .then(data => {
+      //   console.log(data);
+      //   response_element.innerHTML = "<b>whoosh</b>";
+      // })
+      // .catch(error => {
+      //   console.error(error);
+      //   response_element.innerHTML = `<b>${error}</b>`;
+      // });
     return false
   }
 
@@ -105,14 +108,14 @@
   h1 {
     font-size: 2rem;
     color: var(--text-color);
-    margin: 0 0 60px;
+    margin: 0 0 20px;
     text-align: center;
   }
 
   form {
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column ; */
   }
 
   label {
@@ -129,6 +132,7 @@
     border-radius: 4px;
     margin-bottom: 15px;
     font-family: var(--font-family);
+    transition: all 0.3s ease-in-out;
   }
 
   input[type="submit"] {
@@ -137,7 +141,6 @@
     border: none;
     cursor: pointer;
     margin-top: 20px;
-    transition: all 0.3s ease-in-out;
   }
 
   input[type="submit"]:hover {
