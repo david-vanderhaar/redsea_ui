@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "live-server",
-    "build": "cp index.html ./build/index.html",
+    "build": "cp index.html ./build/index.html && cp -r assets ./build/assets",
     "deploy_gh_pages": "touch build/.nojekyll && gh-pages -d build -t true",
     "deploy": "npm run deploy_gh_pages",
     "publish": "npm run build && npm run deploy"
