@@ -51,7 +51,7 @@
   form.addEventListener('submit', submitForm);
 
   function sendPostRequest(email, youtube_url) {
-    const url = "waxolry6j6neksf3my3yshkz6i0zudyf.lambda-url.us-east-1.on.aws"
+    const url = "https://waxolry6j6neksf3my3yshkz6i0zudyf.lambda-url.us-east-1.on.aws"
     const data = {
       action: 'start',
       environment: [
@@ -66,9 +66,12 @@
       ]
     }
 
+    const stringified = JSON.stringify(data)
+
     return fetch(url, {
       method: 'POST',
-      body: data
+      headers: {"Content-Type": "application/json"},
+      body: stringified
     })
   }
 </script>
