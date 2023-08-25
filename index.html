@@ -35,23 +35,28 @@
     const {recipient_email, youtube_url} = Object.fromEntries(data.entries());
     
     sendPostRequest(recipient_email, youtube_url)
-      .then(response => {
-        response_element.innerHTML = "<b>whoosh, watch the inbox</b>";
-        form.reset();
-      })
-      // .then(response => response.json())
-      // .then(data => {
-      //   console.log(data);
-      //   response_element.innerHTML = "<b>whoosh</b>";
-      // })
-      // .catch(error => {
-      //   console.error(error);
-      //   response_element.innerHTML = `<b>${error}</b>`;
-      // });
+      .then( async (response) => {
+        const data = await response.json();
+        if ('errors' in data) handleError(data['errors'])
+        else handleSuccess()
+      }).catch(error => {
+        handleError()
+      });
+
+    // ensure the form doesn't reload the page
     return false
   }
 
   form.addEventListener('submit', submitForm);
+
+  function handleError(errors = ['something went wrong']) {
+    response_element.innerHTML = `<b>${errors.join('\n\r')}</b>`;
+  }
+
+  function handleSuccess() {
+    response_element.innerHTML = "<b>whoosh, watch the inbox</b>";
+    form.reset();
+  }
 
   function sendPostRequest(email, youtube_url) {
     const url = "https://waxolry6j6neksf3my3yshkz6i0zudyf.lambda-url.us-east-1.on.aws"
@@ -70,11 +75,13 @@
     }
 
     const stringified = JSON.stringify(data)
-
+    
+    // set loading state
+    response_element.innerHTML = "<b>loading...</b>";
     return fetch(url, {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
-      body: stringified
+      body: stringified,
     })
   }
 </script>
